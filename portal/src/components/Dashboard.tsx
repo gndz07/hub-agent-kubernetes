@@ -1,7 +1,8 @@
 import React from 'react'
 import { Box, H3, Text } from '@traefiklabs/faency'
+import { getInjectedValues } from 'utils/getInjectedValues'
 
-const { catalogName, catalogDescription } = window as any
+const { catalogName, catalogDescription } = getInjectedValues()
 
 const Dashboard = () => {
   return (
