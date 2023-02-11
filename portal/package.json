@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
+    "dev": "PORT=3003 react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "format": "prettier-eslint '$(pwd)/**/*.{ts,tsx}' --config .prettierrc.js --write",
