@@ -1,10 +1,8 @@
 import React from 'react'
-// import useSWR from 'swr'
 import { NavigationDrawer, NavigationContainer, Box, NavigationLink, H3, H1 } from '@traefiklabs/faency'
 import { useNavigate } from 'react-router-dom'
 
 const SideNavbar = ({ catalogName }: { catalogName: string }) => {
-  // const { data: services } = useSWR(`/api/${catalogName}/services`)
   const services = ['petstore-svc@petstore']
 
   const navigate = useNavigate()
