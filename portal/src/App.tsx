@@ -6,6 +6,9 @@ import Dashboard from 'components/Dashboard'
 import Service from 'components/Service'
 import { getInjectedValues } from 'utils/getInjectedValues'
 import { HelmetProvider } from 'react-helmet-async'
+import { QueryClientProvider, QueryClient } from 'react-query'
+
+const queryClient = new QueryClient()
 
 const bodyGlobalStyle = globalCss({
   body: {
@@ -26,23 +29,18 @@ const Routes = () => {
   )
 }
 
-const App = () => {
-  // fetch(`/api/${catalogName}/services`)
-  //   .then((resp) => resp.json())
-  //   .then((services) => console.log('services', services))
-  //   .catch((err) => console.error(err))
-
-  return (
-      <HelmetProvider>
-        <FaencyProvider>
-          <BrowserRouter>
-            <PageLayout catalogName={catalogName}>
-              <Routes />
-            </PageLayout>
-          </BrowserRouter>
-        </FaencyProvider>
-      </HelmetProvider>
-  )
-}
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <HelmetProvider>
+      <FaencyProvider>
+        <BrowserRouter>
+          <PageLayout catalogName={catalogName}>
+            <Routes />
+          </PageLayout>
+        </BrowserRouter>
+      </FaencyProvider>
+    </HelmetProvider>
+  </QueryClientProvider>
+)
 
 export default App

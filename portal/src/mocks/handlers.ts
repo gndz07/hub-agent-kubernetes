@@ -34,4 +34,14 @@ export const handlers = [
       }),
     )
   }),
+
+  rest.get('/api/:catalogName/services', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        catalogName: req.params,
+        services: [],
+      }),
+    )
+  }),
 ]
