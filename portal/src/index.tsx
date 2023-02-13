@@ -6,10 +6,21 @@ const container = document.getElementById('root')
 if (!container) {
   throw new Error('Container not found')
 }
+
+function prepare() {
+  if (process.env.NODE_ENV === 'development') {
+    return import('./mocks/browser').then(({ worker }) => worker.start())
+  }
+
+  return Promise.resolve()
+}
+
 const root = createRoot(container)
 
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+prepare().then(() => {
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  )
+})
