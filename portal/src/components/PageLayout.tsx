@@ -1,6 +1,6 @@
 import React from 'react'
 import { Flex, Container, VariantProps, CSS } from '@traefiklabs/faency'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 import SideNavbar from 'components/SideNavbar'
 
 type Props = {

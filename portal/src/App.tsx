@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes as RouterRoutes } from 'react-router-dom'
 import Dashboard from 'components/Dashboard'
 import Service from 'components/Service'
 import { getInjectedValues } from 'utils/getInjectedValues'
+import { HelmetProvider } from 'react-helmet-async'
 
 const bodyGlobalStyle = globalCss({
   body: {
@@ -32,13 +33,15 @@ const App = () => {
   //   .catch((err) => console.error(err))
 
   return (
-    <FaencyProvider>
-      <BrowserRouter>
-        <PageLayout catalogName={catalogName}>
-          <Routes />
-        </PageLayout>
-      </BrowserRouter>
-    </FaencyProvider>
+      <HelmetProvider>
+        <FaencyProvider>
+          <BrowserRouter>
+            <PageLayout catalogName={catalogName}>
+              <Routes />
+            </PageLayout>
+          </BrowserRouter>
+        </FaencyProvider>
+      </HelmetProvider>
   )
 }
 
