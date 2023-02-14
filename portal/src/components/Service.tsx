@@ -5,11 +5,11 @@ import { useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 // import { useGetService } from 'hooks/use-services'
 import SwaggerUI from 'swagger-ui-react'
+import { getInjectedValues } from 'utils/getInjectedValues'
 
 const Service = () => {
+  const { catalogName } = getInjectedValues()
   const { serviceName } = useParams()
-
-  // const { data } = useGetService(serviceName as string)
 
   return (
     <Box>
@@ -18,7 +18,7 @@ const Service = () => {
       </Helmet>
       <Box>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-        <SwaggerUI url="https://petstore.swagger.io/v2/swagger.json" />
+        <SwaggerUI url={`/api/${catalogName}/services/${serviceName}`} />
       </Box>
     </Box>
   )

@@ -1,5 +1,6 @@
 // src/mocks/handlers.js
 import { rest } from 'msw'
+import petstore from './petstore.json'
 
 export const handlers = [
   rest.post('/login', (req, res, ctx) => {
@@ -40,12 +41,6 @@ export const handlers = [
   }),
 
   rest.get('/api/:catalogName/services/:serviceName', (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        id: 1,
-        name: req.params.serviceName,
-      }),
-    )
+    return res(ctx.status(200), ctx.json(petstore))
   }),
 ]
