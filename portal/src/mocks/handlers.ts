@@ -36,11 +36,15 @@ export const handlers = [
   }),
 
   rest.get('/api/:catalogName/services', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(['petstore-svc@petstore', 'petstore2-svc@petstore2']))
+  }),
+
+  rest.get('/api/:catalogName/services/:serviceName', (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
-        catalogName: req.params,
-        services: [],
+        id: 1,
+        name: req.params.serviceName,
       }),
     )
   }),

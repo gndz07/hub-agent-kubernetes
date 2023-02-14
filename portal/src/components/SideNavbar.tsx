@@ -1,9 +1,10 @@
 import React from 'react'
-import { NavigationDrawer, NavigationContainer, Box, NavigationLink, H3, H1 } from '@traefiklabs/faency'
+import { NavigationDrawer, NavigationContainer, NavigationLink, H3, H1, Flex } from '@traefiklabs/faency'
 import { useNavigate } from 'react-router-dom'
+import { useServices } from 'hooks/use-services'
 
 const SideNavbar = ({ catalogName }: { catalogName: string }) => {
-  const services = ['petstore-svc@petstore']
+  const { data: services } = useServices()
 
   const navigate = useNavigate()
 
@@ -15,15 +16,21 @@ const SideNavbar = ({ catalogName }: { catalogName: string }) => {
         }}
       >
         <>
-          <H1>{catalogName}</H1>
-          <H3 css={{ mt: '$6' }}>API References</H3>
-          {services?.map((service, index) => (
-            <Box key={`sidenav-${index}`} css={{ mt: '$1' }}>
-              <NavigationLink onClick={() => navigate(`/${service}`)} css={{ whiteSpace: 'nowrap' }}>
+          <Flex css={{ height: '$10' }}>
+            <H1>{catalogName}</H1>
+          </Flex>
+          <H3>API References</H3>
+          <Flex direction="column" css={{ mt: '$5' }}>
+            {services?.map((service: string, index: number) => (
+              <NavigationLink
+                key={`sidenav-${index}`}
+                onClick={() => navigate(`/${service}`)}
+                css={{ whiteSpace: 'nowrap' }}
+              >
                 {service}
               </NavigationLink>
-            </Box>
-          ))}
+            ))}
+          </Flex>
         </>
       </NavigationContainer>
     </NavigationDrawer>
