@@ -6,6 +6,7 @@ import { useGetService } from 'hooks/use-services'
 
 const Service = () => {
   const { serviceName } = useParams()
+
   const { data } = useGetService(serviceName as string)
 
   return (

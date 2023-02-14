@@ -1,9 +1,10 @@
 import React from 'react'
 import { NavigationDrawer, NavigationContainer, NavigationLink, H3, H1, Flex } from '@traefiklabs/faency'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useServices } from 'hooks/use-services'
 
 const SideNavbar = ({ catalogName }: { catalogName: string }) => {
+  const { pathname } = useLocation()
   const { data: services } = useServices()
 
   const navigate = useNavigate()
@@ -23,6 +24,7 @@ const SideNavbar = ({ catalogName }: { catalogName: string }) => {
           <Flex direction="column" css={{ mt: '$5' }}>
             {services?.map((service: string, index: number) => (
               <NavigationLink
+                active={pathname.slice(1) === service}
                 key={`sidenav-${index}`}
                 onClick={() => navigate(`/${service}`)}
                 css={{ whiteSpace: 'nowrap' }}
