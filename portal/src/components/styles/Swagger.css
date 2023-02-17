@@ -8225,6 +8225,8 @@
   align-items: center;
   flex: 1;
   text-align: left;
+  border: none;
+  background-color: transparent;
 }
 
 .swagger-ui .opblock .opblock-section-header {
@@ -9507,6 +9509,10 @@
 .swagger-ui section.models .models-control {
   display: flex;
   align-items: center;
+  border: none;
+  width: 100%;
+  text-align: justify;
+  background-color: transparent;
 }
 
 .swagger-ui section.models .models-control svg {
@@ -9591,11 +9597,15 @@
 
 .swagger-ui section.models .model-box {
   background: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .swagger-ui .model-box .model-box-control {
   display: flex;
   align-items: center;
+  border: none;
+  width: 100%;
 }
 
 .swagger-ui .model-box-control > .pointer > .model-title {
