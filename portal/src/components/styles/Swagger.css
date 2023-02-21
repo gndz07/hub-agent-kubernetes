@@ -146,6 +146,7 @@
 .swagger-ui [type='submit'],
 .swagger-ui button,
 .swagger-ui html [type='button'] {
+  appearance: button;
   -webkit-appearance: button;
 }
 
@@ -198,6 +199,7 @@
 }
 
 .swagger-ui [type='search'] {
+  appearance: textfield;
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
@@ -2968,6 +2970,7 @@
 }
 
 .swagger-ui .input-reset {
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
@@ -3332,7 +3335,7 @@
   display: none;
 }
 .swagger-ui .main .link::before {
-  content: "API Contract";
+  content: 'API Contract';
 }
 
 .swagger-ui .list {
@@ -9995,6 +9998,7 @@
 
 .swagger-ui .info > div {
   margin: 0 0 5px;
+  line-height: 1.5;
 }
 
 .swagger-ui .info .base-url {

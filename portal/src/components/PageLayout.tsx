@@ -41,10 +41,9 @@ const PageLayout = ({
                 width: '100%',
                 flex: 1,
                 mx: contentAlignment === 'left' ? 0 : 'auto',
-                pt: '$3',
               }}
             >
-              <Flex direction="column" css={{ flex: 1, pt: '80px' }}>
+              <Flex direction="column" css={{ flex: 1 }}>
                 {children}
               </Flex>
               {/* <Footer /> */}
