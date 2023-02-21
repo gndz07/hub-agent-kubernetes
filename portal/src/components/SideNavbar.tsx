@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavigationDrawer, NavigationContainer, NavigationLink, H3, H1, Flex } from '@traefiklabs/faency'
+import { NavigationDrawer, NavigationContainer, NavigationLink, H3, H1, Flex, Link } from '@traefiklabs/faency'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useServices } from 'hooks/use-services'
 
@@ -17,9 +17,14 @@ const SideNavbar = ({ catalogName }: { catalogName: string }) => {
         }}
       >
         <>
-          <Flex css={{ height: '$10' }}>
-            <H1>{catalogName}</H1>
-          </Flex>
+          <Link
+            onClick={() => navigate(`/`)}
+            css={{ textDecoration: 'none', '&:hover': { textDecoration: 'none', cursor: 'pointer' } }}
+          >
+            <Flex css={{ height: '$10' }}>
+              <H1>{catalogName}</H1>
+            </Flex>
+          </Link>
           <H3>API References</H3>
           <Flex direction="column" css={{ mt: '$5' }}>
             {services?.map((service: string, index: number) => (
