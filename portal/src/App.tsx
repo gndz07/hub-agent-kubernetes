@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { FaencyProvider, globalCss, lightTheme } from '@traefiklabs/faency'
 import PageLayout from 'components/PageLayout'
-import { BrowserRouter, Route, Routes as RouterRoutes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes as RouterRoutes, Navigate } from 'react-router-dom'
 import Dashboard from 'components/Dashboard'
 import Service from 'components/Service'
 import { getInjectedValues } from 'utils/getInjectedValues'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClientProvider, QueryClient } from 'react-query'
+import LogIn from 'components/auth/LogIn'
 
 const queryClient = new QueryClient()
 
@@ -21,12 +22,39 @@ const bodyGlobalStyle = globalCss({
 
 const { catalogName } = getInjectedValues()
 
+const PrivateRoute = ({ children }: { children: JSX.Element }): JSX.Element => {
+  // TODO fix user auth mechanism
+  const isLoggedIn = false
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login" />
+  }
+
+  // authorized so return child components
+  return <PageLayout catalogName={catalogName}>{children}</PageLayout>
+}
+
 const Routes = () => {
   return (
     <RouterRoutes>
       {bodyGlobalStyle()}
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/:serviceName" element={<Service />} />
+      <Route path="/login" element={<LogIn catalogName={catalogName as string} />} />
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/:serviceName"
+        element={
+          <PrivateRoute>
+            <Service />
+          </PrivateRoute>
+        }
+      />
     </RouterRoutes>
   )
 }
@@ -41,9 +69,7 @@ const App = () => {
       <HelmetProvider>
         <FaencyProvider>
           <BrowserRouter>
-            <PageLayout catalogName={catalogName}>
-              <Routes />
-            </PageLayout>
+            <Routes />
           </BrowserRouter>
         </FaencyProvider>
       </HelmetProvider>
