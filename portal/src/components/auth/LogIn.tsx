@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Box, Button, Flex, H1, Text } from '@traefiklabs/faency'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import TextFieldWithControls from 'components/TextFieldWithControls'
 import SubtleLink from 'components/SubtleLink'
+import { useAuthDispatch, useAuthState } from 'context/auth'
+import { handleLogIn } from 'context/auth/actions'
 
 const SCHEMA = Yup.object().shape({
   username: Yup.string().required('Your username is required'),
@@ -12,12 +14,28 @@ const SCHEMA = Yup.object().shape({
 })
 
 const INITIAL_VALUES = {
-  email: '',
+  username: '',
   password: '',
 }
 
 const LogIn = ({ catalogName }: { catalogName: string }) => {
+  const authDispatch = useAuthDispatch()
+  const { error, isLoggedIn } = useAuthState()
   const [errorMsg, setErrorMsg] = useState()
+
+  const handleSubmit = useCallback(async (values) => {
+    await handleLogIn(authDispatch, values)
+  }, [])
+
+  useEffect(() => {
+    if (error) {
+      setErrorMsg(error.response?.data?.errorMessage || error.message)
+    }
+  }, [error])
+
+  if (isLoggedIn) {
+    return <Navigate to={'/'} />
+  }
 
   return (
     <Flex id="login" css={{ minHeight: '100vh' }}>
@@ -44,7 +62,7 @@ const LogIn = ({ catalogName }: { catalogName: string }) => {
                 </Text>
               </Box>
             )}
-            <Formik initialValues={INITIAL_VALUES} onSubmit={(v) => console.log(v)} validationSchema={SCHEMA}>
+            <Formik initialValues={INITIAL_VALUES} onSubmit={handleSubmit} validationSchema={SCHEMA}>
               {(formik) => (
                 <Form>
                   <TextFieldWithControls

@@ -1,11 +1,18 @@
 import React from 'react'
-import { NavigationDrawer, NavigationContainer, NavigationLink, H3, H1, Flex, Link } from '@traefiklabs/faency'
+import { NavigationDrawer, NavigationContainer, NavigationLink, H3, H1, Flex, Link, Text } from '@traefiklabs/faency'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useServices } from 'hooks/use-services'
+import { FiPower } from 'react-icons/fi'
+import { useAuthDispatch, useAuthState } from 'context/auth'
+import { handleLogOut } from 'context/auth/actions'
+
+const CustomNavigationLink = NavigationLink as any
 
 const SideNavbar = ({ catalogName }: { catalogName: string }) => {
   const { pathname } = useLocation()
   const { data: services } = useServices()
+  const authDispatch = useAuthDispatch()
+  const { user } = useAuthState()
 
   const navigate = useNavigate()
 
@@ -39,6 +46,12 @@ const SideNavbar = ({ catalogName }: { catalogName: string }) => {
             ))}
           </Flex>
         </>
+      </NavigationContainer>
+      <NavigationContainer>
+        <Text css={{ pl: '$3', fontWeight: '500' }}>{user?.username}</Text>
+        <CustomNavigationLink as="button" startAdornment={<FiPower />} onClick={() => handleLogOut(authDispatch)}>
+          Log Out
+        </CustomNavigationLink>
       </NavigationContainer>
     </NavigationDrawer>
   )

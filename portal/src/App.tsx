@@ -8,6 +8,7 @@ import { getInjectedValues } from 'utils/getInjectedValues'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import LogIn from 'components/auth/LogIn'
+import AuthProvider, { useAuthState } from 'context/auth'
 
 const queryClient = new QueryClient()
 
@@ -24,7 +25,7 @@ const { catalogName } = getInjectedValues()
 
 const PrivateRoute = ({ children }: { children: JSX.Element }): JSX.Element => {
   // TODO fix user auth mechanism
-  const isLoggedIn = false
+  const { isLoggedIn } = useAuthState()
 
   if (!isLoggedIn) {
     return <Navigate to="/login" />
@@ -68,9 +69,11 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
         <FaencyProvider>
-          <BrowserRouter>
-            <Routes />
-          </BrowserRouter>
+          <AuthProvider>
+            <BrowserRouter>
+              <Routes />
+            </BrowserRouter>
+          </AuthProvider>
         </FaencyProvider>
       </HelmetProvider>
     </QueryClientProvider>
