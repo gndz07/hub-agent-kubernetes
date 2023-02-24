@@ -40,6 +40,16 @@ export const handlers = [
   }),
 
   rest.get('/api/:catalogName/services/:serviceName', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(petstore))
+    const headers = req.headers
+    if (headers.get('Authorization')) {
+      return res(ctx.status(200), ctx.json(petstore))
+    } else {
+      return res(
+        ctx.status(401),
+        ctx.json({
+          errorMessage: 'Unauthorized',
+        }),
+      )
+    }
   }),
 ]

@@ -6,6 +6,16 @@ import { Helmet } from 'react-helmet-async'
 import SwaggerUI from 'swagger-ui-react'
 import { getInjectedValues } from 'utils/getInjectedValues'
 
+const requestInterceptor = (req) => {
+  const token = localStorage.getItem('token')
+  return {
+    ...req,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+}
+
 const Service = () => {
   const { catalogName } = getInjectedValues()
   const { serviceName } = useParams()
@@ -17,7 +27,7 @@ const Service = () => {
       </Helmet>
       <Box>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-        <SwaggerUI url={`/api/${catalogName}/services/${serviceName}`} />
+        <SwaggerUI url={`/api/${catalogName}/services/${serviceName}`} requestInterceptor={requestInterceptor} />
       </Box>
     </Box>
   )
