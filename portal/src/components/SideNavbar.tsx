@@ -32,7 +32,7 @@ const SideNavbar = ({ catalogName }: { catalogName: string }) => {
               <H1>{catalogName}</H1>
             </Flex>
           </Link>
-          <H3>API References</H3>
+          <H3>Available APIs</H3>
           <Flex direction="column" css={{ mt: '$5' }}>
             {services?.map((service: string, index: number) => (
               <NavigationLink

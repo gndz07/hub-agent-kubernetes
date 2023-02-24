@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { FaencyProvider, globalCss, lightTheme } from '@traefiklabs/faency'
 import PageLayout from 'components/PageLayout'
 import { BrowserRouter, Route, Routes as RouterRoutes, Navigate } from 'react-router-dom'
-import Dashboard from 'components/Dashboard'
-import Service from 'components/Service'
+import Dashboard from 'pages/Dashboard'
+import Service from 'pages/Service'
 import { getInjectedValues } from 'utils/getInjectedValues'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClientProvider, QueryClient } from 'react-query'
-import LogIn from 'components/auth/LogIn'
+import LogIn from 'pages/LogIn'
 import AuthProvider, { useAuthState } from 'context/auth'
 
 const queryClient = new QueryClient()
@@ -24,14 +24,12 @@ const bodyGlobalStyle = globalCss({
 const { catalogName } = getInjectedValues()
 
 const PrivateRoute = ({ children }: { children: JSX.Element }): JSX.Element => {
-  // TODO fix user auth mechanism
   const { isLoggedIn } = useAuthState()
 
   if (!isLoggedIn) {
     return <Navigate to="/login" />
   }
 
-  // authorized so return child components
   return <PageLayout catalogName={catalogName}>{children}</PageLayout>
 }
 
