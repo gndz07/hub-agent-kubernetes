@@ -28,7 +28,13 @@ export const handlers = [
   rest.get('/api/:catalogName/services', (req, res, ctx) => {
     const headers = req.headers
     if (headers.get('Authorization')) {
-      return res(ctx.status(200), ctx.json(['petstore-svc@petstore', 'petstore2-svc@petstore2']))
+      return res(
+        ctx.status(200),
+        ctx.json([
+          { name: 'API Group 1', type: 'api-group', apis: ['petstore-svc@petstore', 'petstore2-svc@petstore2'] },
+          { name: 'petstore3-svc@petstore3', type: 'api' },
+        ]),
+      )
     } else {
       return res(
         ctx.status(401),
