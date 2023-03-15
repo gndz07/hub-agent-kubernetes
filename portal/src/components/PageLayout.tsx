@@ -2,6 +2,9 @@ import React from 'react'
 import { Flex, Container, VariantProps, CSS } from '@traefiklabs/faency'
 import { Helmet } from 'react-helmet-async'
 import SideNavbar from 'components/SideNavbar'
+import { getInjectedValues } from 'utils/getInjectedValues'
+
+const { catalogName } = getInjectedValues()
 
 type Props = {
   title?: string
@@ -20,7 +23,6 @@ const PageLayout = ({
   containerSize = '3',
   maxWidth,
   contentAlignment = 'default',
-  catalogName,
 }: Props) => {
   return (
     <>

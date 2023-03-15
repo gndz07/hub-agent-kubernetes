@@ -2,23 +2,21 @@ import React from 'react'
 import {
   NavigationDrawer,
   NavigationContainer,
-  NavigationLink,
   H3,
   H1,
   Flex,
   Link,
-  Text,
   NavigationTreeContainer,
   NavigationTreeItem as FaencyNavTreeItem,
 } from '@traefiklabs/faency'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useServices } from 'hooks/use-services'
-import { FiPower } from 'react-icons/fi'
+// import { FiPower } from 'react-icons/fi'
 import { FaFolder, FaFolderOpen, FaFileAlt } from 'react-icons/fa'
-import { useAuthDispatch, useAuthState } from 'context/auth'
-import { handleLogOut } from 'context/auth/actions'
+// import { useAuthDispatch, useAuthState } from 'context/auth'
+// import { handleLogOut } from 'context/auth/actions'
 
-const CustomNavigationLink = NavigationLink as any
+// const CustomNavigationLink = NavigationLink as any
 
 const NavigationTreeItem = ({
   key,
@@ -51,8 +49,8 @@ const NavigationTreeItem = ({
 
 const SideNavbar = ({ catalogName }: { catalogName: string }) => {
   const { data: services } = useServices()
-  const authDispatch = useAuthDispatch()
-  const { user } = useAuthState()
+  // const authDispatch = useAuthDispatch()
+  // const { user } = useAuthState()
 
   const navigate = useNavigate()
 
@@ -87,12 +85,12 @@ const SideNavbar = ({ catalogName }: { catalogName: string }) => {
           </Flex>
         </>
       </NavigationContainer>
-      <NavigationContainer>
+      {/* <NavigationContainer>
         <Text css={{ pl: '$3', fontWeight: '500' }}>{user?.username}</Text>
         <CustomNavigationLink as="button" startAdornment={<FiPower />} onClick={() => handleLogOut(authDispatch)}>
           Log Out
         </CustomNavigationLink>
-      </NavigationContainer>
+      </NavigationContainer> */}
     </NavigationDrawer>
   )
 }
