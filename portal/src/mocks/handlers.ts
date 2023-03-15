@@ -1,6 +1,7 @@
 // src/mocks/handlers.js
 import { rest } from 'msw'
-import petstore from './petstore.json'
+import api from './api.json'
+import collectionApi from './collection-api.json'
 
 export const handlers = [
   rest.post('/login', (req, res, ctx) => {
@@ -25,15 +26,15 @@ export const handlers = [
     // )
   }),
 
-  rest.get('/api/:catalogName/services', (req, res, ctx) => {
+  rest.get('/api/:portalName/apis', (req, res, ctx) => {
     // const headers = req.headers
     // if (headers.get('Authorization')) {
     return res(
       ctx.status(200),
-      ctx.json([
-        { name: 'API Group 1', type: 'api-group', apis: ['petstore-svc@petstore', 'petstore2-svc@petstore2'] },
-        { name: 'petstore3-svc@petstore3', type: 'api' },
-      ]),
+      ctx.json({
+        "collections":[{"name": "my-store-collection", "apis": [{"name":"my-petstore-api","specLink":"/collections/my-store-collection/apis/my-petstore-api@petstore"}]}],
+        "apis":[{"name":"my-petstore-api","specLink":"/apis/my-petstore-api@petstore"}]
+      }),
     )
     // } else {
     //   return res(
@@ -45,10 +46,10 @@ export const handlers = [
     // }
   }),
 
-  rest.get('/api/:catalogName/services/:serviceName', (req, res, ctx) => {
+  rest.get('/api/:portalName/apis/:apiName', (req, res, ctx) => {
     // const headers = req.headers
     // if (headers.get('Authorization')) {
-    return res(ctx.status(200), ctx.json(petstore))
+    return res(ctx.status(200), ctx.json(api))
     // } else {
     //   return res(
     //     ctx.status(401),
@@ -58,4 +59,18 @@ export const handlers = [
     //   )
     // }
   }),
+
+  rest.get('/api/:portalName/collections/:collectionName/apis/:apiName', (req, res, ctx) => {
+      // const headers = req.headers
+      // if (headers.get('Authorization')) {
+        return res(ctx.status(200), ctx.json(collectionApi))
+      // } else {
+      //   return res(
+      //     ctx.status(401),
+      //     ctx.json({
+      //       errorMessage: 'Unauthorized',
+      //     }),
+      //   )
+      // }
+    }),
 ]
