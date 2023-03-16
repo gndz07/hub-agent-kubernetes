@@ -25,7 +25,7 @@ const bodyGlobalStyle = globalCss({
 //     return <Navigate to="/login" />
 //   }
 
-//   return <PageLayout catalogName={catalogName}>{children}</PageLayout>
+//   return <PageLayout>{children}</PageLayout>
 // }
 
 const Routes = () => {
@@ -41,7 +41,15 @@ const Routes = () => {
         }
       />
       <Route
-        path="/:serviceName"
+        path="/apis/:apiName"
+        element={
+          <PageLayout>
+            <Service />
+          </PageLayout>
+        }
+      />
+      <Route
+        path="/collections/:collectionName/apis/:apiName"
         element={
           <PageLayout>
             <Service />

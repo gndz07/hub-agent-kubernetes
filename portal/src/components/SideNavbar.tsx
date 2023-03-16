@@ -19,27 +19,28 @@ import { FaFolder, FaFolderOpen, FaFileAlt } from 'react-icons/fa'
 // const CustomNavigationLink = NavigationLink as any
 
 const NavigationTreeItem = ({
-  key,
   name,
   type,
   children,
+  specLink,
   ...props
 }: {
   key: string
   name: string
   type: string
   children?: React.ReactNode
+  specLink?: string
 }) => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
+
   return (
     <FaencyNavTreeItem
-      active={pathname.slice(1) === name}
-      key={key}
-      onClick={() => navigate(`/${name}`)}
+      active={pathname === specLink}
+      onClick={() => navigate(specLink as string)}
       css={{ textAlign: 'justify', width: '100%' }}
       label={name}
-      startAdornment={type === 'api-group' ? null : <FaFileAlt />}
+      startAdornment={type === 'api' ? <FaFileAlt /> : null}
       {...props}
     >
       {children}
@@ -47,8 +48,8 @@ const NavigationTreeItem = ({
   )
 }
 
-const SideNavbar = ({ catalogName }: { catalogName: string }) => {
-  const { data: services } = useServices()
+const SideNavbar = ({ portalName }: { portalName: string }) => {
+  const { data: apis } = useServices()
   // const authDispatch = useAuthDispatch()
   // const { user } = useAuthState()
 
@@ -67,21 +68,29 @@ const SideNavbar = ({ catalogName }: { catalogName: string }) => {
             css={{ textDecoration: 'none', '&:hover': { textDecoration: 'none', cursor: 'pointer' } }}
           >
             <Flex css={{ height: '$10' }}>
-              <H1>{catalogName}</H1>
+              <H1>{portalName}</H1>
             </Flex>
           </Link>
           <H3>Available APIs</H3>
           <Flex direction="column" css={{ mt: '$5' }}>
             <NavigationTreeContainer defaultCollapseIcon={<FaFolderOpen />} defaultExpandIcon={<FaFolder />}>
-              {services?.map((service, index: number) => (
-                <NavigationTreeItem key={`sidenav-${index}`} name={service.name} type={service.type}>
-                  {service.apis?.length &&
-                    service.apis.map((api: string, idx: number) => (
-                      <NavigationTreeItem key={`sidenav-${index}-${idx}`} name={api} type="api" />
+              {apis?.collections?.map((collection, index: number) => (
+                <NavigationTreeItem key={`sidenav-${index}`} name={collection.name} type="collection">
+                  {collection.apis?.length &&
+                    collection.apis.map((api: { name: string; specLink: string }, idx: number) => (
+                      <NavigationTreeItem
+                        key={`sidenav-${index}-${idx}`}
+                        name={api.name}
+                        specLink={api.specLink}
+                        type="api"
+                      />
                     ))}
                 </NavigationTreeItem>
               ))}
             </NavigationTreeContainer>
+            {apis?.apis?.map((api, index: number) => (
+              <NavigationTreeItem key={`sidenav-api-${index}`} name={api.name} specLink={api.specLink} type="api" />
+            ))}
           </Flex>
         </>
       </NavigationContainer>

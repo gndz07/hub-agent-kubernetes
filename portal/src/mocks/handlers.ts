@@ -32,8 +32,15 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        "collections":[{"name": "my-store-collection", "apis": [{"name":"my-petstore-api","specLink":"/collections/my-store-collection/apis/my-petstore-api@petstore"}]}],
-        "apis":[{"name":"my-petstore-api","specLink":"/apis/my-petstore-api@petstore"}]
+        collections: [
+          {
+            name: 'my-store-collection',
+            apis: [
+              { name: 'my-petstore-api', specLink: '/collections/my-store-collection/apis/my-petstore-api@petstore' },
+            ],
+          },
+        ],
+        apis: [{ name: 'my-petstore-api', specLink: '/apis/my-petstore-api@petstore' }],
       }),
     )
     // } else {
@@ -61,16 +68,16 @@ export const handlers = [
   }),
 
   rest.get('/api/:portalName/collections/:collectionName/apis/:apiName', (req, res, ctx) => {
-      // const headers = req.headers
-      // if (headers.get('Authorization')) {
-        return res(ctx.status(200), ctx.json(collectionApi))
-      // } else {
-      //   return res(
-      //     ctx.status(401),
-      //     ctx.json({
-      //       errorMessage: 'Unauthorized',
-      //     }),
-      //   )
-      // }
-    }),
+    // const headers = req.headers
+    // if (headers.get('Authorization')) {
+    return res(ctx.status(200), ctx.json(collectionApi))
+    // } else {
+    //   return res(
+    //     ctx.status(401),
+    //     ctx.json({
+    //       errorMessage: 'Unauthorized',
+    //     }),
+    //   )
+    // }
+  }),
 ]

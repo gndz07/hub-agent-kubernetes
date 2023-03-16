@@ -1,33 +1,40 @@
 import 'components/styles/Swagger.css'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Box } from '@traefiklabs/faency'
 import { useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import SwaggerUI from 'swagger-ui-react'
 import { getInjectedValues } from 'utils/getInjectedValues'
 
-const requestInterceptor = (req) => {
-  const token = localStorage.getItem('token')
-  return {
-    ...req,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
-}
+// const requestInterceptor = (req) => {
+//   const token = localStorage.getItem('token')
+//   return {
+//     ...req,
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   }
+// }
 
 const Service = () => {
-  const { catalogName } = getInjectedValues()
-  const { serviceName } = useParams()
+  const { portalName } = getInjectedValues()
+  const { apiName, collectionName } = useParams()
+
+  const specUrl = useMemo(() => {
+    if (collectionName) {
+      return `/api/${portalName}/collections/${collectionName}/apis/${apiName}`
+    }
+
+    return `/api/${portalName}/apis/${apiName}`
+  }, [collectionName, portalName, apiName])
 
   return (
     <Box>
       <Helmet>
-        <title>{serviceName || 'API Portal'}</title>
+        <title>{apiName || 'API Portal'}</title>
       </Helmet>
       <Box>
-        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-        <SwaggerUI url={`/api/${catalogName}/services/${serviceName}`} requestInterceptor={requestInterceptor} />
+        <SwaggerUI url={specUrl} />
       </Box>
     </Box>
   )

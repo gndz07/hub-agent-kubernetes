@@ -2,10 +2,10 @@ import axios from 'axios'
 import { useQuery } from 'react-query'
 import { getInjectedValues } from 'utils/getInjectedValues'
 
-const { catalogName } = getInjectedValues()
+const { portalName } = getInjectedValues()
 
 export const useServices = () => {
-  const fetchUrl = `/api/${catalogName}/services`
+  const fetchUrl = `/api/${portalName}/apis`
 
   return useQuery(fetchUrl, () =>
     axios
