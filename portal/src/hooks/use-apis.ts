@@ -4,7 +4,7 @@ import { getInjectedValues } from 'utils/getInjectedValues'
 
 const { portalName } = getInjectedValues()
 
-export const useServices = () => {
+export const useAPIs = () => {
   const fetchUrl = `/api/${portalName}/apis`
 
   return useQuery(fetchUrl, () =>

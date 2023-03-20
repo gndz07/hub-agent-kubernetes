@@ -16,7 +16,7 @@ import { getInjectedValues } from 'utils/getInjectedValues'
 //   }
 // }
 
-const Service = () => {
+const API = () => {
   const { portalName } = getInjectedValues()
   const { apiName, collectionName } = useParams()
 
@@ -40,4 +40,4 @@ const Service = () => {
   )
 }
 
-export default Service
+export default API

@@ -3,7 +3,7 @@ import { FaencyProvider, globalCss, lightTheme } from '@traefiklabs/faency'
 import PageLayout from 'components/PageLayout'
 import { BrowserRouter, Route, Routes as RouterRoutes } from 'react-router-dom'
 import Dashboard from 'pages/Dashboard'
-import Service from 'pages/Service'
+import API from 'pages/API'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClientProvider, QueryClient } from 'react-query'
 
@@ -44,7 +44,7 @@ const Routes = () => {
         path="/apis/:apiName"
         element={
           <PageLayout>
-            <Service />
+            <API />
           </PageLayout>
         }
       />
@@ -52,7 +52,7 @@ const Routes = () => {
         path="/collections/:collectionName/apis/:apiName"
         element={
           <PageLayout>
-            <Service />
+            <API />
           </PageLayout>
         }
       />

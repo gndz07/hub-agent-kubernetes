@@ -10,7 +10,7 @@ import {
   NavigationTreeItem as FaencyNavTreeItem,
 } from '@traefiklabs/faency'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useServices } from 'hooks/use-services'
+import { useAPIs } from 'hooks/use-apis'
 // import { FiPower } from 'react-icons/fi'
 import { FaFolder, FaFolderOpen, FaFileAlt } from 'react-icons/fa'
 // import { useAuthDispatch, useAuthState } from 'context/auth'
@@ -49,7 +49,7 @@ const NavigationTreeItem = ({
 }
 
 const SideNavbar = ({ portalName }: { portalName: string }) => {
-  const { data: apis } = useServices()
+  const { data: apis } = useAPIs()
   // const authDispatch = useAuthDispatch()
   // const { user } = useAuthState()
 
