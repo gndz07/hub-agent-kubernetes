@@ -12,14 +12,14 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { FaencyProvider, globalCss, lightTheme } from '@traefiklabs/faency'
 import PageLayout from 'components/PageLayout'
-import { BrowserRouter, Route, Routes as RouterRoutes } from 'react-router-dom'
-import Dashboard from 'pages/Dashboard'
+import { BrowserRouter, Navigate, Route, Routes as RouterRoutes } from 'react-router-dom'
 import API from 'pages/API'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClientProvider, QueryClient } from 'react-query'
+import { useAPIs } from 'hooks/use-apis'
 
 const queryClient = new QueryClient()
 
@@ -43,17 +43,20 @@ const bodyGlobalStyle = globalCss({
 // }
 
 const Routes = () => {
+  const { data: apis } = useAPIs()
+
+  const defaultRoute = useMemo(() => {
+    if (apis?.collections) {
+      return apis.collections[0].apis[0].specLink
+    }
+
+    return apis?.apis[0].specLink
+  }, [apis])
+
   return (
     <RouterRoutes>
       {bodyGlobalStyle()}
-      <Route
-        path="/"
-        element={
-          <PageLayout>
-            <Dashboard />
-          </PageLayout>
-        }
-      />
+      <Route path="/" element={<Navigate to={defaultRoute} replace />} />
       <Route
         path="/apis/:apiName"
         element={
