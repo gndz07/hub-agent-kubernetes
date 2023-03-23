@@ -20,6 +20,7 @@ import API from 'pages/API'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClientProvider, QueryClient } from 'react-query'
 import { useAPIs } from 'hooks/use-apis'
+import Dashboard from 'pages/Dashboard'
 
 const queryClient = new QueryClient()
 
@@ -56,7 +57,18 @@ const Routes = () => {
   return (
     <RouterRoutes>
       {bodyGlobalStyle()}
-      <Route path="/" element={<Navigate to={defaultRoute} replace />} />
+      <Route
+        path="/"
+        element={
+          defaultRoute ? (
+            <Navigate to={defaultRoute} replace />
+          ) : (
+            <PageLayout>
+              <Dashboard />
+            </PageLayout>
+          )
+        }
+      />
       <Route
         path="/apis/:apiName"
         element={
