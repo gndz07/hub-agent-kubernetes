@@ -38,6 +38,7 @@ const NavigationTreeItem = ({
   type,
   children,
   specLink,
+  disabled,
   ...props
 }: {
   key: string
@@ -46,6 +47,7 @@ const NavigationTreeItem = ({
   type: string
   children?: React.ReactNode
   specLink?: string
+  disabled?: boolean
 }) => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
@@ -54,10 +56,15 @@ const NavigationTreeItem = ({
     <FaencyNavTreeItem
       active={pathname === specLink}
       onClick={() => navigate(specLink as string)}
-      css={{ textAlign: 'justify', width: '100%' }}
+      css={
+        disabled
+          ? { textAlign: 'justify', width: '100%', opacity: 0.5, '&:hover': { cursor: 'default' } }
+          : { textAlign: 'justify', width: '100%' }
+      }
       label={name}
       subtitle={subtitle}
       startAdornment={type === 'api' ? <FaFileAlt /> : null}
+      disabled={disabled}
       {...props}
     >
       {children}
@@ -97,6 +104,7 @@ const SideNavbar = ({ portalTitle }: { portalTitle: string }) => {
                   name={collection.name}
                   subtitle={collection.pathPrefix}
                   type="collection"
+                  disabled={!collection.apis?.length}
                 >
                   {collection.apis?.length &&
                     collection.apis.map((api: { name: string; specLink: string; pathPrefix: string }, idx: number) => (

@@ -48,7 +48,11 @@ const Routes = () => {
 
   const defaultRoute = useMemo(() => {
     if (apis?.collections) {
-      return apis.collections[0].apis[0].specLink
+      for (let i = 0; i < apis.collections.length; i++) {
+        if (apis.collections[i].apis?.length) {
+          return apis.collections[i].apis[0].specLink
+        }
+      }
     }
 
     return apis?.apis[0].specLink
