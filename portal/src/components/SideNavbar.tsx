@@ -99,7 +99,7 @@ const SideNavbar = ({ portalTitle }: { portalTitle: string }) => {
               <H1>{portalTitle}</H1>
             </Flex>
           </Link>
-          <H3>Available APIs</H3>
+          {apis?.collections?.length || apis?.apis?.length ? <H3>Available APIs</H3> : null}
           <Flex direction="column" css={{ mt: '$5' }}>
             <NavigationTreeContainer defaultCollapseIcon={<FaFolderOpen />} defaultExpandIcon={<FaFolder />}>
               {apis?.collections?.map((collection, index: number) => (
