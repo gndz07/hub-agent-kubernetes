@@ -12,7 +12,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-import axios from 'axios'
+// import axios from 'axios'
 import { useQuery } from 'react-query'
 import { getInjectedValues } from 'utils/getInjectedValues'
 
@@ -21,10 +21,23 @@ const { portalName } = getInjectedValues()
 export const useAPIs = () => {
   const fetchUrl = `/api/${portalName}/apis`
 
-  return useQuery(fetchUrl, () =>
-    axios
-      .get(fetchUrl)
-      .then(({ data }) => data)
-      .catch((error) => console.log(error)),
+  return useQuery(
+    fetchUrl,
+    () =>
+      fetch(fetchUrl, {
+        redirect: 'manual',
+      })
+        .then((res) => {
+          if (res.type === 'opaqueredirect') {
+            location.reload()
+          } else {
+            return res.json()
+          }
+        })
+        .catch((error) => console.log(error)),
+    // axios
+    //   .get(fetchUrl)
+    //   .then(({ data }) => data)
+    //   .catch((error) => console.log(error)),
   )
 }

@@ -13,6 +13,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 import React, { useEffect, useMemo } from 'react'
+// import axios from 'axios'
 import { FaencyProvider, globalCss, lightTheme } from '@traefiklabs/faency'
 import PageLayout from 'components/PageLayout'
 import { BrowserRouter, Navigate, Route, Routes as RouterRoutes } from 'react-router-dom'
@@ -25,6 +26,39 @@ import { ToastProvider } from 'context/toasts'
 import { useAPIs } from 'hooks/use-apis'
 import EmptyState from 'pages/EmptyState'
 import Settings from 'pages/Settings'
+
+// axios global setup
+// axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+// axios.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response == null) {
+//       // location.reload()
+//       // window.location.href = error.request
+//       // alert('A network error occurred. '
+//       //     + 'This could be a CORS issue or a dropped internet connection. '
+//       //     + 'It is not possible for us to know.')
+//     }
+//     return Promise.reject(error)
+//   },
+// )
+
+// axios.interceptors.request.use(
+//   (request) => {
+//     console.log(request)
+//     return request
+//   },
+//   (err) => {
+//     return Promise.reject(err)
+//   },
+// )
+// axios.interceptors.response.use((response) => {
+//   if (response && response.status === 302) {
+//     console.log('baa')
+//   }
+
+//   return response
+// })
 
 const queryClient = new QueryClient()
 

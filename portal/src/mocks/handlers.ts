@@ -47,37 +47,39 @@ export const handlers = [
     // const headers = req.headers
     // if (headers.get('Authorization')) {
     return res(
-      ctx.status(200),
-      ctx.json({
-        collections: [
-          {
-            name: 'my-empty-store-collection',
-            apis: [],
-          },
-          {
-            name: 'my-store-collection',
-            pathPrefix: '/api',
-            apis: [
-              {
-                name: 'my-petstore-api',
-                specLink: '/collections/my-store-collection/apis/my-petstore-api@petstore',
-                pathPrefix: '/prefix',
-              },
-            ],
-          },
-          {
-            name: 'my-store-collection-2',
-            apis: [
-              {
-                name: 'my-petstore-api-2',
-                specLink: '/collections/my-store-collection/apis/my-petstore-api@petstore',
-                pathPrefix: '/path',
-              },
-            ],
-          },
-        ],
-        apis: [{ name: 'my-petstore-api', specLink: '/apis/my-petstore-api@petstore', pathPrefix: '/api' }],
-      }),
+      ctx.status(302),
+      ctx.set('Location', 'https://sso.portal.hub-preview.traefik.io'),
+      // ctx.status(200),
+      // ctx.json({
+      //   collections: [
+      //     {
+      //       name: 'my-empty-store-collection',
+      //       apis: [],
+      //     },
+      //     {
+      //       name: 'my-store-collection',
+      //       pathPrefix: '/api',
+      //       apis: [
+      //         {
+      //           name: 'my-petstore-api',
+      //           specLink: '/collections/my-store-collection/apis/my-petstore-api@petstore',
+      //           pathPrefix: '/prefix',
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       name: 'my-store-collection-2',
+      //       apis: [
+      //         {
+      //           name: 'my-petstore-api-2',
+      //           specLink: '/collections/my-store-collection/apis/my-petstore-api@petstore',
+      //           pathPrefix: '/path',
+      //         },
+      //       ],
+      //     },
+      //   ],
+      //   apis: [{ name: 'my-petstore-api', specLink: '/apis/my-petstore-api@petstore', pathPrefix: '/api' }],
+      // }),
     )
     // } else {
     //   return res(
